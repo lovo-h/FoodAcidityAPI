@@ -5,6 +5,7 @@ import (
 	"github.com/lovohh/FoodAcidityAPI/interfaces"
 	"github.com/lovohh/FoodAcidityAPI/usecases"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -15,7 +16,9 @@ func main() {
 	interactorFood := new(usecases.InteractorFood)
 	interactorFood.RepoFood = repoFood
 	webresponderjson := new(infrastructure.WebResponderJSON)
-	sendgrid := new(infrastructure.HandlerSendGrid)
+
+	sendgridAPIKey := os.Getenv("SENDGRID_API_KEY")
+	sendgrid := infrastructure.NewHandlerSendGrid(sendgridAPIKey)
 
 	handlerWebservice := &interfaces.HandlerWebservice{
 		InteractorFood:      interactorFood,

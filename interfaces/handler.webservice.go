@@ -96,7 +96,7 @@ func (handler *HandlerWebservice) EmailUserEdibleList(rw http.ResponseWriter, re
 	var emailHTMLMsg string
 
 	for foodIdx, food := range foodList {
-		safeFood := html.EscapeString(food)
+		safeFood := html.EscapeString(strings.Replace(food, "%", "pct", -1))
 		emailMsg += fmt.Sprintf("%d %s\n", foodIdx+1, safeFood)
 		emailHTMLMsg += fmt.Sprintf("<li>%s</li>", safeFood)
 	}
